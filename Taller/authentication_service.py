@@ -2,10 +2,16 @@ import json
 import requests
 from ldap3 import Server, Connection, ALL, SIMPLE
 
+import os
+
 class AuthenticationService:
     def __init__(self):
+        # Obtener la ruta completa al archivo JSON
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+        json_file_path = os.path.join(current_directory, "users.json")
+        
         # Cargamos los datos de usuario desde el archivo JSON
-        with open("users.json", "r") as file:
+        with open(json_file_path, "r") as file:
             self.users_data = json.load(file)["usuarios"]
 
     def authenticate(self, username, password):
